@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const cors = require('cors')
 const { StatusCodes } = require('http-status-codes')
-const connectDb= require('./db/config')
+const connectDb = require('./db/config')
 
 // port import
 const PORT = process.env.PORT
@@ -12,8 +12,14 @@ const PORT = process.env.PORT
 // instance of express
 const app = express()
 
+//template engine settings
+app.set("view engine", "ejs")
+app.set("views", "./view")
+
+
 // declare document folder as static
 app.use(express.static('documents'))
+app.use(express.static('view'))
 
 // bodyparser middleware for incoming data
 app.use(express.urlencoded({ extended: true }))
@@ -23,9 +29,17 @@ app.use(express.json())
 app.use(cors())
 
 // index route
-app.get(`/`, async (req,res) =>  {
+app.get(`/`, async (req,res) => {
     try {
-        return res.status(StatusCodes.ACCEPTED).json({ status: true, msg: `Welcome to fileupoad api.`})
+         res.render('index.ejs')
+    } catch (err) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ status: false, msg: err})
+    }
+})
+// upload page view controller
+app.get(`/upload`, async (req,res) => {
+    try {
+         res.render('upload.ejs')
     } catch (err) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ status: false, msg: err})
     }
