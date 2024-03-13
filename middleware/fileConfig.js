@@ -21,4 +21,7 @@ const fileConfig = multer({
     }
 }).single('mFile')
 
+// .single('mFile') -> for single file
+// .array('mFile') -> for morethan one file
+
 module.exports = fileConfig
