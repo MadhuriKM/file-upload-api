@@ -29,7 +29,7 @@ const uploadFile = async (req,res) => {
          ]
 
             // sending email with attachments
-         let mailRes = await mailsend("pallavigowda78197@gmail.com", "File Attachment","Welcome to file api with attachment", fileData)
+         let mailRes = await mailsend("mkmakaravalli@gmail.com", "File Attachment","Welcome to file api with attachment", fileData)
 
         res.status(StatusCodes.CREATED).json({ status: true, msg: "file uploaded", file: newFile,mailRes })
      } catch (err) {
